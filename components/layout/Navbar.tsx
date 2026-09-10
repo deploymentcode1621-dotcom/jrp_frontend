@@ -8,6 +8,7 @@ import { ChevronDown, Phone, Mail, MapPin, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Button from "@/components/common/Button";
 import MobileMenu from "@/components/layout/MobileMenu";
+import Image from "next/image";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
@@ -90,9 +91,15 @@ export default function Navbar() {
               scrolled ? "py-3" : "py-5"
             )}
           >
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-secondary text-lg font-display font-semibold text-white">
-              SV
-            </div>
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl overflow-hidden bg-white">
+  <Image
+    src="/logo.png"
+    alt="Swami Vivekanand Institute of Paramedical logo"
+    width={44}
+    height={44}
+    className="h-full w-full object-contain"
+  />
+</div>
             <div className="leading-tight">
               <p className="font-display text-[15px] font-semibold text-ink">
                 Swami Vivekanand
