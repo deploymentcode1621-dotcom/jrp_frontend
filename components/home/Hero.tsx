@@ -10,8 +10,6 @@ const stats = [
   { value: "100%", label: "Practical learning" },
 ];
 
-const headlineWords = ["Learn.", "Care.", "Serve."];
-
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState(true);
@@ -24,172 +22,160 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-[#F8F4EC]">
-      <div className="grid min-h-[92vh] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
-        {/* ---------- Left: content panel ---------- */}
-        <div className="relative z-10 order-2 flex flex-col justify-center px-6 py-16 sm:px-12 lg:order-1 lg:px-16 lg:py-24">
-          {/* Crest-style eyebrow */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-8 inline-flex w-fit items-center gap-3"
-          >
-            <span className="flex h-8 w-8 items-center justify-center rounded-full border border-[#6E1F24]/30">
-              <span className="h-2 w-2 rounded-full bg-[#6E1F24]" />
-            </span>
-            <span className="text-sm text-[#5B4A44]">
-              Jeevan Rekha Pratishthan, Latur
-            </span>
-          </motion.div>
+    <section className="relative min-h-[100svh] overflow-hidden bg-[#0E1815]">
+      {/* ---------- Background video + duotone wash ---------- */}
+      <motion.video
+        ref={videoRef}
+        className="absolute inset-0 h-full w-full object-cover"
+        autoPlay
+        muted
+        loop
+        playsInline
+        poster="/images/hero-poster.jpg"
+        initial={{ scale: 1.06 }}
+        animate={prefersReducedMotion ? {} : { scale: 1 }}
+        transition={{ duration: 20, ease: "easeOut" }}
+      >
+        <source src="/videos/hero-loop.mp4" type="video/mp4" />
+      </motion.video>
 
-          <div className="relative max-w-lg">
-            {/* Pulse line, now a quiet ink stroke instead of a bright accent */}
-            <motion.svg
-              viewBox="0 0 220 32"
-              className="absolute -top-7 left-0 h-6 w-44 opacity-80"
-              fill="none"
-            >
-              <motion.path
-                d="M0 16 H70 L82 5 L94 27 L106 16 H140 L150 9 L160 16 H220"
-                stroke="#B98B34"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 1.3, delay: 0.5, ease: "easeInOut" }}
-              />
-            </motion.svg>
+      <div className="absolute inset-0 bg-[#0E1815]/55" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0E1815] via-[#0E1815]/70 to-[#0E1815]/10" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0E1815]/90 via-[#0E1815]/30 to-transparent" />
 
-            <h1 className="font-display text-5xl leading-[1.08] text-[#241512] sm:text-6xl lg:text-7xl">
-              {headlineWords.map((word, i) => (
-                <motion.span
-                  key={word}
-                  initial={{ opacity: 0, y: 18 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 + i * 0.12 }}
-                  className="mr-4 inline-block"
-                >
-                  {word}
-                </motion.span>
-              ))}
-            </h1>
-          </div>
+      {/* ---------- Right-edge credential rail (desktop only) ---------- */}
+      <div className="absolute right-10 top-0 hidden h-full flex-col items-center justify-center lg:flex">
+        <div className="h-24 w-px bg-[#EFE7D4]/25" />
+        <p
+          className="my-5 whitespace-nowrap text-xs tracking-[0.02em] text-[#EFE7D4]/60"
+          style={{ writingMode: "vertical-rl" }}
+        >
+          Est. 2009 &nbsp;·&nbsp; Latur, Maharashtra
+        </p>
+        <div className="h-24 w-px bg-[#EFE7D4]/25" />
+      </div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.55 }}
-            className="mt-6 max-w-md text-lg leading-relaxed text-[#5B4A44]"
-          >
-            Building confident, compassionate and professionally prepared
-            nurses through quality education and practical learning.
-          </motion.p>
+      {/* ---------- Main content, anchored low-left like a dossier cover ---------- */}
+      <div className="relative z-10 flex min-h-[100svh] flex-col justify-end px-6 pb-28 pt-28 sm:px-12 lg:px-16 lg:pb-32">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-7 inline-flex w-fit items-center gap-2.5 rounded-full border border-[#EFE7D4]/20 bg-[#0E1815]/40 px-4 py-1.5 backdrop-blur-sm"
+        >
+          <span className="h-1.5 w-1.5 rounded-full bg-[#C08A34]" />
+          <span className="text-sm text-[#EFE7D4]/85">
+            Jeevan Rekha Pratishthan, Latur
+          </span>
+        </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.65 }}
-            className="mt-10 flex flex-wrap items-center gap-4"
-          >
-            <Button href="/admissions" size="lg" withArrow>
-              Explore Admissions
-            </Button>
-            <Button href="/about/swami-vivekanand" variant="outline" size="lg">
-              Discover Institute
-            </Button>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.75 }}
-            className="mt-16 flex max-w-md gap-8 border-t border-[#6E1F24]/15 pt-8"
-          >
-            {stats.map((stat) => (
-              <div key={stat.label} className="relative pl-3">
-                <span className="absolute left-0 top-1 h-4 w-[2px] rounded-full bg-[#B98B34]" />
-                <p className="font-display text-2xl text-[#241512] sm:text-3xl">
-                  {stat.value}
-                </p>
-                <p className="mt-1 text-xs text-[#5B4A44]">{stat.label}</p>
-              </div>
+        <div className="relative max-w-2xl">
+          <h1 className="font-display text-5xl leading-[1.05] text-[#F3ECD9] sm:text-6xl lg:text-[5.25rem]">
+            {["Learn.", "Care.", "Serve."].map((word, i) => (
+              <motion.span
+                key={word}
+                initial={{ opacity: 0, y: 22 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.65, delay: 0.2 + i * 0.13, ease: "easeOut" }}
+                className="mr-5 inline-block"
+              >
+                {word}
+              </motion.span>
             ))}
-          </motion.div>
-        </div>
+          </h1>
 
-        {/* ---------- Right: image/video panel ---------- */}
-        <div className="relative order-1 min-h-[46vh] overflow-hidden lg:order-2 lg:min-h-full">
-          <motion.video
-            ref={videoRef}
-            className="absolute inset-0 h-full w-full object-cover"
-            autoPlay
-            muted
-            loop
-            playsInline
-            poster="/images/hero-poster.jpg"
-            initial={{ scale: 1.08 }}
-            animate={prefersReducedMotion ? {} : { scale: 1 }}
-            transition={{ duration: 18, ease: "easeOut" }}
-          >
-            <source src="/videos/hero-loop.mp4" type="video/mp4" />
-          </motion.video>
-
-          {/* Maroon duotone wash, not blue */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#1C0D0D]/85 via-[#1C0D0D]/25 to-transparent" />
-          <div className="absolute inset-0 bg-[#4A1418] mix-blend-multiply opacity-30" />
-
-          {/* Arched seam into the cream panel — desktop only */}
-          <svg
-            className="absolute -left-px top-0 hidden h-full w-16 lg:block"
-            viewBox="0 0 64 800"
-            preserveAspectRatio="none"
+          {/* single orchestrated pulse-line, drawn once beneath the headline */}
+          <motion.svg
+            viewBox="0 0 620 40"
+            className="mt-3 h-8 w-full max-w-md"
             fill="none"
           >
-            <path
-              d="M64 0 C24 160, 24 640, 64 800 L0 800 L0 0 Z"
-              fill="#F8F4EC"
+            <motion.path
+              d="M0 20 H180 L200 6 L222 34 L244 20 H320 L338 11 L356 29 L374 20 H620"
+              stroke="#C08A34"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 0.85 }}
+              transition={{ duration: 1.4, delay: 0.75, ease: "easeInOut" }}
             />
-          </svg>
-
-          {/* Accreditation tag, sitting on the photo like a caption */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="absolute bottom-8 left-8 rounded-lg border border-white/20 bg-black/25 px-4 py-2.5 backdrop-blur-sm sm:left-12"
-          >
-            <p className="text-xs tracking-wide text-white/90">
-              Recognised nursing college, Latur
-            </p>
-          </motion.div>
-
-          <motion.button
-            type="button"
-            onClick={toggleSound}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.9 }}
-            className="absolute bottom-8 right-8 flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-black/25 text-white/80 backdrop-blur-sm transition hover:bg-black/40 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B98B34]"
-            aria-label={isMuted ? "Unmute background video" : "Mute background video"}
-          >
-            {isMuted ? (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M11 5 6 9H2v6h4l5 4V5Z" />
-                <line x1="23" y1="9" x2="17" y2="15" />
-                <line x1="17" y1="9" x2="23" y2="15" />
-              </svg>
-            ) : (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M11 5 6 9H2v6h4l5 4V5Z" />
-                <path d="M15.5 8.5a5 5 0 0 1 0 7" />
-                <path d="M18.5 6a9 9 0 0 1 0 12" />
-              </svg>
-            )}
-          </motion.button>
+          </motion.svg>
         </div>
+
+        <motion.p
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.85 }}
+          className="mt-5 max-w-md text-lg leading-relaxed text-[#EFE7D4]/75"
+        >
+          Building confident, compassionate and professionally prepared
+          nurses through quality education and practical learning.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.95 }}
+          className="mt-9 flex flex-wrap items-center gap-4"
+        >
+          <Button href="/admissions" size="lg">
+            Explore admissions
+          </Button>
+          <Button
+            href="/about/swami-vivekanand"
+            variant="outline"
+            size="lg"
+            className="border-[#EFE7D4]/40 text-[#F3ECD9] hover:bg-[#F3ECD9]/10"
+          >
+            Discover the institute
+          </Button>
+        </motion.div>
       </div>
+
+      {/* ---------- Vitals bar: stats strip along the bottom edge ---------- */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 1.05 }}
+        className="absolute bottom-0 left-0 right-0 z-10 border-t border-[#EFE7D4]/15 bg-[#0E1815]/70 backdrop-blur-sm"
+      >
+        <div className="mx-auto grid max-w-5xl grid-cols-3 divide-x divide-[#EFE7D4]/15 px-6 sm:px-12 lg:px-16">
+          {stats.map((stat) => (
+            <div key={stat.label} className="px-4 py-5 first:pl-0 sm:px-8">
+              <p className="font-display text-2xl text-[#F3ECD9] sm:text-3xl">
+                {stat.value}
+              </p>
+              <p className="mt-1 text-xs text-[#EFE7D4]/60">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* ---------- Mute toggle ---------- */}
+      <motion.button
+        type="button"
+        onClick={toggleSound}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 1.1 }}
+        className="absolute right-6 top-6 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-[#EFE7D4]/25 bg-[#0E1815]/40 text-[#EFE7D4]/80 backdrop-blur-sm transition hover:bg-[#0E1815]/60 hover:text-[#F3ECD9] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C08A34] sm:right-12 lg:right-16"
+        aria-label={isMuted ? "Unmute background video" : "Mute background video"}
+      >
+        {isMuted ? (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M11 5 6 9H2v6h4l5 4V5Z" />
+            <line x1="23" y1="9" x2="17" y2="15" />
+            <line x1="17" y1="9" x2="23" y2="15" />
+          </svg>
+        ) : (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M11 5 6 9H2v6h4l5 4V5Z" />
+            <path d="M15.5 8.5a5 5 0 0 1 0 7" />
+            <path d="M18.5 6a9 9 0 0 1 0 12" />
+          </svg>
+        )}
+      </motion.button>
     </section>
   );
 }
